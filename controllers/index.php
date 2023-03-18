@@ -32,7 +32,7 @@ function  get_list_user()
             "1" => $key->name,
             "2" => $key->username,
             "3" => $key->email,
-            "4" => '<button class="btn btn-info btn_detalle" data-id='.$key->id.' >Detalle</button>'
+            "4" => '<button class="btn btn-info btn_detalle" data-id='.$key->id.' ><i class="bi bi-card-list"></i></button>'
         );
     }
 
@@ -53,6 +53,6 @@ function detalle(){
 
     $rps = $usuario->detalle($id);
     $data_usuario  =  json_decode(json_encode($rps));
-    
+
     echo  json_encode($data_usuario->address);
 }
