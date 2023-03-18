@@ -2,11 +2,13 @@ let url_paht = "../controllers/index.php";
 
 const init = () => {
 
-    $("#btn_detalle").on("click", () => {
-        $("#modal_detalle").modal("show");
+    get_list_user();
+
+    $("#table_usuarios").on("click", '.btn_detalle' ,  function() {
+         let id  =  $(this).data("id");
+         detalle(id);
     });
 
-    get_list_user();
 
 }
 
@@ -40,6 +42,34 @@ const get_list_user = () => {
             order: [[0, "desc"]], //ordenar (columna , orden)
         })
         .dataTable();
+
+
+     
+}
+
+const detalle  = (id)=>{ 
+    
+    $.post(url_paht ,  {accion : "detalle" ,  id:id} , (rps)=>{
+        // {"street":"Rex Trail","suite":"Suite 280","city":"Howemouth","zipcode":"58804-1099","geo":{"lat":"24.8918","lng":"21.8984"}}
+        let datos = JSON.parse(rps);
+        let  list  = "<ul>"
+        const  datos_array  = [datos];
+
+        datos_array.forEach( (element , index) => {
+
+            list += `<li>street : ${element.street}</li>`;
+            list += `<li>suite : ${element.suite}</li>`;
+            list += `<li>city : ${element.city}</li>`;
+
+        });
+
+        list  += "</ul>";
+        
+        $("#dom_body_modal").html(list);
+    });
+
+
+    $("#modal_detalle").modal("show");
 }
 
 init();

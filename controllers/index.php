@@ -11,6 +11,9 @@ switch ($accion) {
     case 'get_list_user':
         get_list_user();
         break;
+    case 'detalle':
+        detalle();
+        break;    
 }
 
 
@@ -29,7 +32,7 @@ function  get_list_user()
             "1" => $key->name,
             "2" => $key->username,
             "3" => $key->email,
-            "4" => ""
+            "4" => '<button class="btn btn-info btn_detalle" data-id='.$key->id.' >Detalle</button>'
         );
     }
 
@@ -41,4 +44,15 @@ function  get_list_user()
     );
     
     echo json_encode($results);
+}
+
+
+function detalle(){
+    global $usuario;
+    $id = $_POST['id'];
+
+    $rps = $usuario->detalle($id);
+    $data_usuario  =  json_decode(json_encode($rps));
+    
+    echo  json_encode($data_usuario->address);
 }
