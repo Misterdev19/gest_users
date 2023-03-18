@@ -1,3 +1,5 @@
+let url_paht = "../controllers/index.php";
+
 const init = () => {
 
     $("#btn_detalle").on("click", () => {
@@ -11,8 +13,7 @@ const init = () => {
 const get_list_user = () => {
 
 
-    $("#table_usuarios")
-        .dataTable({
+    $("#table_usuarios").dataTable({
             aProcessing: true,
             aServerSide: true,
             "processing": true,
@@ -26,14 +27,9 @@ const get_list_user = () => {
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
             ajax: {
-                url: "",
-                // xhr: function() {
-
-                //    console.log("se cancelo");
-
-                // },
+                url: url_paht,
                 type: "post",
-                data: {},
+                data: {accion:"get_list_user"},
                 dataType: "json",
                 error: function (e) {
                     // console.log(e.responseText);
